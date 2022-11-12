@@ -211,7 +211,6 @@ var t = null;
             tooltip: {
               trigger: 'item',
               formatter: function (params) {
-                console.log(params);
                 if (params.name.search("区") == -1) {
                   return params.data.name + ':' + params.data.position;
                 }
@@ -258,8 +257,19 @@ var t = null;
               right: 'left',
               top: 0,
               feature: {
-                dataView: { readOnly: false },
-                restore: {},
+              	dataView: {
+               optionToContent:function(opt){
+               	let info='';
+               	dataAre.map(x=>{
+               		info += x.name+'<br>';
+               		x.list.map(item => {
+                  info += item.name + ":" + item.position + '<br>';
+                })})
+                                return info;
+                            },
+                 readOnly: false,
+			},
+              	restore: {},
                 saveAsImage: {}
               }
             },
@@ -295,7 +305,7 @@ var t = null;
                       }
                     }
                   },
-               
+
                 itemStyle: {
                   normal: {
                     borderColor: "#00ff00",     //图形的描边颜色
